@@ -9,6 +9,16 @@ const movies = [
     { title: 'الإرهاب والكباب‎', year: 1992, rating: 6.2 }
 ]
 
+
+const sortedMovies = movies.slice().sort((a, b) => b.year - a.year)
+
+const sortedMoviesByRating = movies.slice().sort((a, b) => b.rating - a.rating)
+
+// const sortedMoviesByTitle = movies.slice().sort((a, b) => b.title - a.title)
+
+
+
+
 app.get("/", (req, res)=> {
     res.send("ok");
 });
@@ -87,6 +97,41 @@ app.get("/movies/get", (req, res)=> {
         data: movies
     });
 });
+
+
+app.get("/movies/get/by-date", (req, res)=> {
+    res.send({
+        status:200, 
+        data: sortedMovies
+    });
+});
+
+
+app.get("/movies/get/by-rating", (req, res)=> {
+    res.send({
+        status:200, 
+        data: sortedMoviesByRating
+    });
+});
+
+app.get("/movies/get/by-title", (req, res)=> {
+    res.send({
+        status:200, 
+        data: movies.sort(function compare( a, b ) {
+            if ( a.title < b.title ){
+              return -1;
+            }
+            if ( a.title > b.title ){
+              return 1;
+            }
+            return 0;
+          }
+          
+        )  
+    });
+});
+
+
 
 app.get("/movies/edit", (req, res)=> {
     res.send();
