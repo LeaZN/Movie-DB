@@ -75,12 +75,16 @@ app.get('/search', (req, res) => {
         })
     }
     else {
+        console.log(res.status(500))
         res.send({
             status:500, 
             error:true, 
             message:"you have to provide a search"
+            
         })
+        
     }
+
 
 })
 ;
@@ -97,6 +101,21 @@ app.get("/movies/get", (req, res)=> {
         data: movies
     });
 });
+
+
+
+app.get("/movies/get/id/:id", function(req, res) {
+    const id = parseInt(req.params.id);
+  
+    if(id <= movies.length && id > 0) {
+      res.send({status: 200, data: movies[id-1]
+      })
+    } else {
+        console.log(res.status(404))
+      res.send({status: 404, error: 'true', message:'the movie ' + id + ' does not exist'})
+      }
+  });
+
 
 
 app.get("/movies/get/by-date", (req, res)=> {
