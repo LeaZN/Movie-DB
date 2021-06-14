@@ -1,0 +1,23 @@
+{
+  "name": "movie_db",
+  "version": "1.0.0",
+  "description": "or CMDB for short",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeaZN/Movie-DB.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LeaZN/Movie-DB/issues"
+  },
+  "homepage": "https://github.com/LeaZN/Movie-DB#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
