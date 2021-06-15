@@ -162,4 +162,61 @@ app.get("/movies/delete", (req, res)=> {
 
 
 
+app.get("/movies/add?title=:title&year=:year&rating=:rating", (req, res)=> {
+    if (
+      req.query.title !== undefined &&
+      parseInt(req.query.year) !== undefined &&
+      parseInt(req.query.rating) !== undefined
+    ) {
+      movies.push({
+        title: req.query.title,
+        year: parseInt(req.query.year),
+        rating: parseInt(req.query.rating)
+      });
+      res.send({ status: 200, data: movies });
+      if (req.query.rating === "") {
+        req.query.rating = 4;
+      }
+    } else {
+      res.send({
+        status: 403,
+        error: true,
+        message:
+          "you cannot create a movie without providing a title and a year"
+      });
+    }
+  });
+       
+
+          
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.listen(3000);
+
+
+
+
+
+
+
+
+
+
+
+
+
