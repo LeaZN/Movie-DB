@@ -14,6 +14,9 @@ const sortedMovies = movies.slice().sort((a, b) => b.year - a.year)
 
 const sortedMoviesByRating = movies.slice().sort((a, b) => b.rating - a.rating)
 
+
+
+
 // const sortedMoviesByTitle = movies.slice().sort((a, b) => b.title - a.title)
 
 
@@ -81,19 +84,14 @@ app.get('/search', (req, res) => {
             error:true, 
             message:"you have to provide a search"
             
-        })
-        
+        })   
     }
-
-
 })
 ;
 
 
 
-app.get("/movies/add", (req, res)=> {
-    res.send();
-});
+
 
 app.get("/movies/get", (req, res)=> {
     res.send({
@@ -156,63 +154,57 @@ app.get("/movies/edit", (req, res)=> {
     res.send();
 });
 
-app.get("/movies/delete", (req, res)=> {
-    res.send();
-});
 
 
 
-app.get("/movies/add?title=:title&year=:year&rating=:rating", (req, res)=> {
-    if (
-      req.query.title !== undefined &&
-      parseInt(req.query.year) !== undefined &&
-      parseInt(req.query.rating) !== undefined
-    ) {
-      movies.push({
-        title: req.query.title,
-        year: parseInt(req.query.year),
-        rating: parseInt(req.query.rating)
-      });
-      res.send({ status: 200, data: movies });
-      if (req.query.rating === "") {
-        req.query.rating = 4;
-      }
-    } else {
-      res.send({
-        status: 403,
-        error: true,
-        message:
-          "you cannot create a movie without providing a title and a year"
-      });
+
+
+
+app.get("/movies/add", (req,res) => {
+
+    const movie = {
+      title : req.query.title,
+      year : req.query.year,
+      rating : req.query.rating
+    };
+
+    if (movie.rating == undefined) {
+        movie.rating = 4;
+    }
+    if ((movie.title) == 'undefined' ||  (movie.year == 'undefined') || (isNaN(movie.year)) || (movie.year.toString().length !== 4)){
+      res.json({status:403, error:true, message:'you cannot create a movie without providing a title and a year'});
+      console.log(res.json)
+    }
+    else{
+      movies.push(movie);
+      res.send(movie);
+      res.json({status: 200, message: 'ok' , data: movies})
     }
   });
-       
-
-          
-    
 
 
 
 
+  app.get('/movies/delete/:id', (req, res) => {
+    var ID =req.params.id
+    if(ID>=0 && ID < movies.length){
+        movies.splice(ID,1)
+        res.send({status:200 ,data:movies})
+
+    }
+    else{
+        res.send({status:404, error:true, message:'the movie' +ID+ 'does not exist'})
+    }
+  })
 
 
 
 
-
-
-
-
-
+  
 
 
 
 app.listen(3000);
-
-
-
-
-
-
 
 
 
