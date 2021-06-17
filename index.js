@@ -2,6 +2,8 @@ var express = require("express");
 
 var app = express();
 
+const port = 3000;
+
 const movies = [
     { title: 'Jaws', year: 1975, rating: 8 },
     { title: 'Avatar', year: 2009, rating: 7.8 },
@@ -150,7 +152,7 @@ app.get("/movies/get/by-title", (req, res)=> {
 
 
 
-app.get("/movies/update/:id" , (req, res)=> {
+app.post("/movies/update/:id" , (req, res)=> {
     var updateId=req.params.id
     var newtitle=req.query.title
     var newyear=req.query.year
@@ -180,7 +182,7 @@ app.get("/movies/update/:id" , (req, res)=> {
 
 
 
-app.get("/movies/add", (req,res) => {
+app.post("/movies/add", (req,res) => {
 
     const movie = {
       title : req.query.title,
@@ -205,7 +207,7 @@ app.get("/movies/add", (req,res) => {
 
 
 
-  app.get('/movies/delete/:id', (req, res) => {
+  app.delete('/movies/delete/:id', (req, res) => {
     var ID =req.params.id
     if(ID>=0 && ID < movies.length){
         movies.splice(ID,1)
