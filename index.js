@@ -150,10 +150,30 @@ app.get("/movies/get/by-title", (req, res)=> {
 
 
 
-app.get("/movies/edit", (req, res)=> {
-    res.send();
-});
+app.get("/movies/update/:id" , (req, res)=> {
+    var updateId=req.params.id
+    var newtitle=req.query.title
+    var newyear=req.query.year
+    var newrating=req.query.rating
 
+    if(updateId>0 && updateId<movies.length){
+        if(newtitle!=movies[updateId].title){
+            movies[updateId].title=newtitle;
+        }
+        else if(newyear!=movies[updateId].year){ 
+             movies[updateId].year=newyear;
+        }
+        else if(newrating!=movies[updateId].rating){
+             movies[updateId].rating=newrating;
+        }
+    res.send({status:200, message: movies})
+    }        
+        
+    else{    
+         res.send({error:true, message:'ID does not exist'})
+        }
+    
+  })
 
 
 
@@ -200,7 +220,7 @@ app.get("/movies/add", (req,res) => {
 
 
 
-  
+
 
 
 
